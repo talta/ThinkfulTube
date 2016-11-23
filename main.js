@@ -11,25 +11,24 @@ var youtube_URL = 'https://www.googleapis.com/youtube/v3/search';
 ///function to get data
 function getDataFromApi(query, parseYoutubeAPIData){
 	console.log('get data from api called');
-	///why didnt this work
-/*	var settings = {
+	var settings = {
 		url: youtube_URL,
-		parameters: {
+		data: {
 			part: 'snippet',
 			key: 'AIzaSyCvVYG8RGDz-ZAC-I8crgNV2cCDzDgS8rc',
 			q: query,
 		},
 		dataType: 'json',
 		type: 'GET',
-		success: displayYoutubeSearchData
+		success: parseYoutubeAPIData
 	}; 
-	$.ajax(settings);*/
-	var data = {
+	$.ajax(settings);
+	/*var data = {
 		part: 'snippet',
 		key: 'AIzaSyCvVYG8RGDz-ZAC-I8crgNV2cCDzDgS8rc',
 		q: query,
 	}
-	$.getJSON(youtube_URL, data, parseYoutubeAPIData)
+	$.getJSON(youtube_URL, data, parseYoutubeAPIData)*/
 } 
 
 
@@ -38,11 +37,7 @@ function getDataFromApi(query, parseYoutubeAPIData){
 function displayYoutubeSearchData(title, url, videoURL){
 	console.log('display youtubesearch data called');
 
-
-	///loop through all of the items in the object and display each of the following
-	//$('.js-video-thumbnail').text(title);
-	$('.js-video-thumbnail').append("<img src="+url+"></url>");
-	//$('.js-video-thumbnail').append("<video><source src="+videoURL+"></video>")
+	$('.js-video-thumbnail').append("<a href=http://"+videoURL+"><img src="+url+"></img></a>");
 }
 
 
@@ -54,16 +49,16 @@ function parseYoutubeAPIData(data){
 	data.items.forEach(function(item){
 		var title= item.snippet.title;
 		var url= item.snippet.thumbnails.default.url;
+		var videoID = item.id.videoId;
+		var videoURL = 'www.youtube.com/watch?v='+videoID;
 		console.log(title);
-		//createVideoURL(item);
-		displayYoutubeSearchData(title, url);
+
+		displayYoutubeSearchData(title, url, videoURL);
 	});
 }
 
 ///potential function to render videos
-function createVideoURL(item){
-	var videoID = item.id.videoId;
-	var videoURL = 'www.youtube.com/watch?v='+videoID;
+function createVideoURL(item, videoURL){
 	console.log(videoURL);
 	return videoURL;
 }
