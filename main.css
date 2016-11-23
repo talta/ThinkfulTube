@@ -1,0 +1,10 @@
+*{
+	box-sizing: border-box;
+}
+
+.js-video-thumbnail{
+	display: inline-block;
+	margin-right: 10px;
+	margin-bottom: 10px;
+	margin-top: 10px;
+}
